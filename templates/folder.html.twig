@@ -1,0 +1,51 @@
+{% extends "base.html.twig" %}
+
+{% block container %}
+    <div class="row center">
+        <a href="{{ url('createFolder') }}" class="btn-large waves-effect waves-light blue">Créer un dossier vierge</a>
+        <a href="{{ url('createFromTemplate', {'folder-category': 'rental'}) }}" class="btn-large waves-effect waves-light blue">Créer un dossier de location</a>
+    </div>
+
+    <div class="row hide" id="owner-folders-row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Gestions</span>
+                    <div id="owner-folders-container" class="collection"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row hide" id="user-folders-row">
+        <div class="col s12 m6 offset-m3">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Contributions</span>
+                    <div id="user-folders-container" class="collection"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $.ajax({
+            // Your server script to process the upload
+            url: "{{ path('folder.get-folders.ajax') }}",
+            type: 'GET',
+            success: function (data) {
+                data.forEach(function (folder) {
+                    if (folder.isOwned) {
+                        $('#owner-folders-row').removeClass('hide');
+                        $('#owner-folders-container').append('<a class="collection-item" href={{ url('editFolder') }}?folder-id='+folder.id+'>'+folder.name+'  <span class="new badge red" data-badge-caption="">'+folder.status+'</span></a>')
+                    } else {
+                        $('#user-folders-row').removeClass('hide');
+                        $('#user-folders-container').append('<a class="collection-item" href={{ url('editFolder') }}?folder-id='+folder.id+'>'+folder.name+'  <span class="new badge red" data-badge-caption="">'+folder.status+'</span></a>')
+                    }
+                })
+            }
+        });
+    </script>
+{% endblock %}

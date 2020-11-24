@@ -1,0 +1,41 @@
+
+folder.get-folders.ajax:
+  path: /ajax/folders
+  controller: App\Controller\Ajax\FolderAjaxController::getFolders
+
+folder.get.ajax:
+  path: /ajax/folder/getDetails
+  controller: App\Controller\Ajax\FolderAjaxController::getFolderDetails
+
+folder.ajax:
+  path: /ajax/folder
+  controller: App\Controller\Ajax\FolderAjaxController::index
+
+folder.clear-document.ajax:
+  path: /ajax/folder/clear-document
+  controller: App\Controller\Ajax\FolderAjaxController::clearDocument
+
+folder.change-name-of-folder.ajax:
+  path: /ajax/folder/change-name-of-folder
+  controller: App\Controller\Ajax\FolderAjaxController::changeNameOfFolder
+
+folder.change-name-of-document.ajax:
+  path: /ajax/folder/change-name-of-document
+  controller: App\Controller\Ajax\FolderAjaxController::changeNameOfDocument
+
+folder.create-document.ajax:
+  path: /ajax/folder/create-document
+  controller: App\Controller\Ajax\FolderAjaxController::createDocumentToFolder
+
+folder.remove-document-from-folder.ajax:
+  path: /ajax/folder/remove-document-from-folder
+  controller: App\Controller\Ajax\FolderAjaxController::removeDocumentFromFolder
+
+folder.send.ajax:
+  path: /ajax/folder/send
+  controller: App\Controller\Ajax\FolderAjaxController::send
+
+
+folder.download-document.ajax:
+  path: /ajax/folder/download-document
+  controller: App\Controller\Ajax\FolderAjaxController::downloadDocument

@@ -1,3 +1,39 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+
+imports:
+    resource: routes/ajax.yaml
+
+index:
+    path: /
+    controller: App\Controller\DefaultController::index
+
+folder:
+    path: /folder/
+    controller: App\Controller\FolderController::index
+
+editFolder:
+    path: /folder/edit/
+    controller: App\Controller\FolderController::edit
+
+createFolder:
+    path: /folder/create/
+    controller: App\Controller\FolderController::create
+
+removeFolder:
+    path: /folder/remove/
+    controller: App\Controller\FolderController::remove
+
+duplicateFolder:
+    path: /folder/duplicate/
+    controller: App\Controller\FolderController::duplicate
+
+createFromTemplate:
+    path: /folder/create-from-template/
+    controller: App\Controller\FolderController::createFromTemplate
+
+profile:
+    path: /profile/
+    controller: App\Controller\ProfileController::index
+
+error:
+    path: /error/{errorCode}
+    controller: App\Controller\ErrorController::index
