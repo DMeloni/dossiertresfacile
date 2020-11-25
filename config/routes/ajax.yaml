@@ -7,8 +7,8 @@ folder.get.ajax:
   path: /ajax/folder/getDetails
   controller: App\Controller\Ajax\FolderAjaxController::getFolderDetails
 
-folder.ajax:
-  path: /ajax/folder
+folder.upload-document.ajax:
+  path: /ajax/folder/upload-document
   controller: App\Controller\Ajax\FolderAjaxController::uploadDocument
 
 folder.clear-document.ajax:

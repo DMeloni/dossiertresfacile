@@ -1,311 +1,64 @@
 {% extends "base.html.twig" %}
 
 {% block container %}
-    <div class="row">
-        <div class="col s6">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Etat du dossier</span>
-                    <p>
-                        <b>Status : </b><span id="folder-status"></span>
-                    </p>
-                    <p>
-                        <b>Mise à jour : </b><span id="folder-updated-at"></span>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col s6">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Paramètrage</span>
-                    <div class="input-field">
-                        <input value="..." id="folder-name" type="text" class="validate folder-name-input">
-                        <label class="active" for="folder-name">Nom du dossier</label>
-                    </div>
-                    <div class="input-field">
-                        <input value="..." id="owner-email" type="text" class="validate owner-name-input">
-                        <label class="active" for="owner-email">Gestionnaire</label>
-                    </div>
-                    <div class="input-field">
-                        <input value="..." id="user-email" type="text" class="validate user-email-input">
-                        <label class="active" for="user-email">Destinataire</label>
+    <div id="folder-edit" data-url="{{ path('folder.get.ajax', {'folder-id': folder.id}) }}">
+        <div class="row">
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Etat du dossier</span>
+                        <p>
+                            <b>Status : </b><span id="folder-status"></span>
+                        </p>
+                        <p>
+                            <b>Mise à jour : </b><span id="folder-updated-at"></span>
+                        </p>
                     </div>
                 </div>
             </div>
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Paramètrage</span>
+                        <div class="input-field">
+                            <input value="..." id="folder-name" type="text" class="validate folder-name-input" data-url="{{ path('folder.change-name-of-folder.ajax') }}">
+                            <label class="active" for="folder-name">Nom du dossier</label>
+                        </div>
+                        <div class="input-field">
+                            <input value="..." id="owner-email" type="text" class="validate owner-name-input">
+                            <label class="active" for="owner-email">Gestionnaire</label>
+                        </div>
+                        <div class="input-field">
+                            <input value="..." id="user-email" type="text" class="validate user-email-input">
+                            <label class="active" for="user-email">Destinataire</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">Documents à fournir</span>
+                        <ul class="collection" id="folder-collection"
+                            data-rename-document-url="{{ path('folder.change-name-of-document.ajax') }}"
+                            data-remove-document-url="{{ path('folder.remove-document-from-folder.ajax') }}"
+                            data-clear-document-url="{{ path('folder.clear-document.ajax') }}"
+                            data-download-document-url="{{ path('folder.download-document.ajax') }}"
+                            data-upload-document-url="{{ path('folder.upload-document.ajax') }}"
+                        ></ul>
+                        <button class="btn" data-folder-id="{{ folder.id }}" id="create-document-button" style="display: none;" data-url="{{ path('folder.create-document.ajax') }}">Ajouter un document</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-large" id="send-folder-button" data-url="{{ path('folder.send.ajax') }}" data-folder-id="{{ folder.id }}">Transmettre le dossier</button>
+        <a href="{{ url('duplicateFolder', {'folder-id': folder.id}) }}" class="btn btn-large blue" id="duplicate-folder-button">Dupliquer le dossier</a>
+        <a href="{{ url('removeFolder', {'folder-id': folder.id}) }}" class="btn btn-large red" id="remove-folder-button">Supprimer le dossier</a>
     </div>
-
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <span class="card-title">Documents à fournir</span>
-                    <ul class="collection" id="folder-collection"></ul>
-                    <button class="btn" id="create-document-button" style="display: none;" >Ajouter un document</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <button class="btn btn-large" id="send-folder-button">Transmettre le dossier</button>
-    <a href="{{ url('duplicateFolder', {'folder-id': folder.id}) }}" class="btn btn-large blue" id="duplicate-folder-button">Dupliquer le dossier</a>
-    <a href="{{ url('removeFolder', {'folder-id': folder.id}) }}" class="btn btn-large red" id="remove-folder-button">Supprimer le dossier</a>
 {% endblock %}
 
 {% block javascripts %}
-    <script>
-        var containerElement = $('.container');
-        function refreshFolder() {
-            $.ajax({
-                // Your server script to process the upload
-                url: "{{ path('folder.get.ajax', {'folder-id': folder.id}) }}",
-                type: 'GET',
-                success: function (folder) {
-                    if(folder.status === 'creating') {
-                        $('#folder-status').text('En cours de création');
-                        $('#user-email').attr('disabled', false);
-                        $('#owner-email').attr('disabled', false);
-                    } else if(folder.status === 'in_progress') {
-                        $('#folder-status').text("En cours d'élaboration");
-                        $('#user-email').attr('disabled', true);
-                        $('#owner-email').attr('disabled', true);
-                    }
-
-                    $('#folder-name').val(folder.name);
-                    $('#folder-updated-at').text(folder.updatedAt);
-                    if ($('#user-email').val() === '...') {
-                        $('#user-email').val(folder.userEmail);
-                    }
-                    if ($('#owner-email').val() === '...') {
-                        $('#owner-email').val(folder.ownerEmail);
-                    }
-
-                    if (folder.canRename) {
-                        $('#folder-name').attr('disabled', false);
-                    } else {
-                        $('#folder-name').attr('disabled', true);
-                    }
-
-                    $('#folder-name').data('folder-id', folder.id);
-
-                    if (folder.canCreateDocument) {
-                        $('#create-document-button').show();
-                    } else {
-                        $('#create-document-button').hide();
-                    }
-
-                    if (folder.canRemove) {
-                        $('#remove-folder-button').show();
-                    } else {
-                        $('#remove-folder-button').hide();
-                    }
-
-                    if (folder.canSendFolderToUser) {
-                        $('#send-folder-button').show();
-                    } else {
-                        $('#send-folder-button').hide();
-                    }
-
-                    $('#folder-collection').empty();
-                    folder.documents.forEach(function (document) {
-                        var hasContent = document.status === 'uploaded';
-
-                        var addContentButtonColor = 'red';
-                        var removeDocumentButtonAttribute = 'disabled';
-                        if (hasContent) {
-                            removeDocumentButtonAttribute = '';
-                            addContentButtonColor = 'green';
-                        }
-
-                        var folderCollectionContent = '<li class="collection-item">'
-                        +'<div class="row mb-3">'
-                        + '    <div class="input-field col s4">'
-                        + '        <input id="document-'+document.id+'-input" data-document-id="'+document.id+'"  value="'+document.name+'" type="text" class="validate document-name-input valid">'
-                        + '        <label class="active" for="document-'+document.id+'-input">Nom du document</label>'
-
-                        if (document.uploader) {
-                            folderCollectionContent += '<span class="helper-text">Mis en ligne par: ' + document.uploader + '</span>';
-                            folderCollectionContent += '<span class="helper-text">' + document.updatedAt + '</span>';
-                        }
-                        folderCollectionContent += '    </div>';
-
-                        folderCollectionContent += '    <div class="input-field col s8">'
-                        + '    <form action="{{ path('folder.ajax') }}" method="post" enctype="multipart/form-data">';
-
-                        if (document.canRemove) {
-                            folderCollectionContent += '<a class="remove-document-from-folder-button red btn btn-small waves-effect waves-light" data-document-id="'+document.id+'">Supprimer<i class="material-icons right">delete</i></a>';
-                        }
-                        if (document.canUpload) {
-                            folderCollectionContent += '<input type="file" style="display:none;" name="fichier" class="uploadFile" id="uploadFile-'+document.id+'" data-folder-id="'+folder.id+'" data-document-id="'+document.id+'"/>';
-                            folderCollectionContent += '<button class="submit-file-button '+addContentButtonColor+' btn btn-small waves-effect waves-light btn-small" data-target-id="uploadFile-'+document.id+'" type="button">Joindre<i class="material-icons right">send</i></button>';
-                        }
-
-                        if (document.canDownload) {
-                            folderCollectionContent += '<button class="download-file-button btn btn-small waves-effect waves-light btn-small" data-document-id="' + document.id + '" type="button">Télécharger<i class="material-icons right">download</i></button>';
-                        }
-
-                        if (document.canClear) {
-                            folderCollectionContent += '<a class="remove-document-button ' + removeDocumentButtonAttribute + ' btn btn-small waves-effect waves-light" data-folder-id="' + folder.id + '" data-document-id="' + document.id + '">Supprimer PJ<i class="material-icons right">delete</i></a>';
-                        }
-
-                        folderCollectionContent += '</form>'
-                        + '    </div>'
-                        + '</div>'
-                        + '</li>'
-                        ;
-
-                        $('#folder-collection').append(folderCollectionContent);
-
-
-                        if (document.canRename) {
-                            $('#document-'+document.id+'-input').attr('disabled', false);
-                        } else {
-                            $('#document-'+document.id+'-input').attr('disabled', true);
-                        }
-                    });
-                }
-            });
-        }
-        containerElement.on('change', '.folder-name-input', function() {
-            var that = $(this);
-            that.attr('disabled', true);
-            $.ajax({
-                // Your server script to process the upload
-                url: "{{ path('folder.change-name-of-folder.ajax') }}",
-                data: {'folder-name': that.val(), 'folder-id': that.data('folder-id')},
-                type: 'POST',
-                success: function (data) {
-                    that.attr('disabled', false);
-                    that.removeClass('invalid');
-                    refreshFolder();
-                }
-            });
-        });
-        refreshFolder();
-        containerElement.on('change', '.document-name-input', function() {
-            $(this).attr('disabled', true);
-            $.ajax({
-                // Your server script to process the upload
-                url: "{{ path('folder.change-name-of-document.ajax') }}",
-                data: {'document-name': $(this).val(), 'document-id': $(this).data('document-id')},
-                type: 'POST',
-                success: function (data) {
-                    $(this).attr('disabled', false);
-                    refreshFolder();
-                }
-            });
-        });
-        $('#remove-folder-button').on('click', function() {
-            if (confirm("Etes vous sure ?")) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-
-        $('#create-document-button').on('click', function() {
-            $.ajax({
-                // Your server script to process the upload
-                url: "{{ path('folder.create-document.ajax') }}",
-                data: {'folder-id': {{ folder.id }} },
-                type: 'POST',
-                success: function (data) {
-                    refreshFolder();
-                }
-            });
-        });
-        $('#send-folder-button').on('click', function() {
-            $.ajax({
-                // Your server script to process the upload
-                url: "{{ path('folder.send.ajax') }}",
-                data: {'folder-id': {{ folder.id }}, 'user-email': $('#user-email').val(), 'owner-email': $('#owner-email').val() },
-                type: 'POST',
-                success: function (data) {
-                    location.reload();
-                }
-            });
-        });
-
-        containerElement.on('click', '.remove-document-from-folder-button', function() {
-            var that = $(this);
-            $.ajax({
-                url: "{{ path('folder.remove-document-from-folder.ajax') }}",
-                data: {'document-id': that.data('document-id') },
-                type: 'POST',
-                success: function (data) {
-                    refreshFolder();
-                }
-            });
-        });
-
-        containerElement.on('click', '.remove-document-button', function() {
-            var that = $(this);
-            $.ajax({
-                url: "{{ path('folder.clear-document.ajax') }}?folder-id=" + that.data('folder-id') + "&document-id=" + that.data('document-id'),
-                type: 'POST',
-                success: function () {
-                    $(that.parents('form')[0]).find('.submit-file-button').removeClass('green');
-                    $(that.parents('form')[0]).find('.submit-file-button').addClass('red');
-                    that.addClass('disabled');
-                    refreshFolder();
-                }
-            });
-        });
-
-        containerElement.on('click', '.submit-file-button', function() {
-            $("#"+$(this).data('target-id')).click();
-        });
-
-        containerElement.on('click', '.download-file-button', function() {
-            var that = $(this);
-            window.location="{{ path('folder.download-document.ajax') }}?document-id=" + that.data('document-id');
-        });
-
-
-
-        containerElement.on('change', '.uploadFile', function() {
-            var that = $(this);
-            $.ajax({
-                // Your server script to process the upload
-                url: "{{ path('folder.ajax') }}?folder-id="+that.data('folder-id')+"&document-id="+that.data('document-id'),
-                type: 'POST',
-
-                // Form data
-                data: new FormData(that.parents('form:first')[0]),
-
-                // Tell jQuery not to process data or worry about content-type
-                // You *must* include these options!
-                cache: false,
-                contentType: false,
-                processData: false,
-
-                // Custom XMLHttpRequest
-                xhr: function () {
-                    var myXhr = $.ajaxSettings.xhr();
-                    if (myXhr.upload) {
-                        // For handling the progress of the upload
-                        myXhr.upload.addEventListener('progress', function (e) {
-                            if (e.lengthComputable) {
-                                $('progress').attr({
-                                    value: e.loaded,
-                                    max: e.total,
-                                });
-                            }
-                        }, false);
-                    }
-                    return myXhr;
-                },
-                success: function () {
-                    $(that.parents('form')[0]).find('.submit-file-button').removeClass('red');
-                    $(that.parents('form')[0]).find('.submit-file-button').addClass('green');
-                    $(that.parents('form')[0]).find('.remove-document-button').removeClass('disabled');
-                    refreshFolder();
-                },
-                error: function(xhr, status, error) {
-                    var errorMessage = xhr.status + ': ' + xhr.statusText
-                    alert('Error - ' + errorMessage);
-                }
-            });
-        });
-    </script>
+    <script src="{{ asset('js/folder-edition.js') }}"></script>
 {% endblock %}
