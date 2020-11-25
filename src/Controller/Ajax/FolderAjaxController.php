@@ -65,7 +65,7 @@ class FolderAjaxController extends AbstractController
         if ($currentUser !== null) {
             $ownersFolders = $folderRepository->findBy(['ownerEmail' => $currentUser->getEmail()]);
             $userFolders = $folderRepository->findBy(['userEmail' => $currentUser->getEmail()]);
-            $folders = array_merge($ownersFolders, $userFolders);
+            $folders = [...$ownersFolders, ...$userFolders];
 
             foreach ($folders as $folder) {
                 if ($folder->getStatus() !== Folder::STATUS_DELETED) {
