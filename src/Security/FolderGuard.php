@@ -11,15 +11,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @package App\Security
  */
-class FolderGuard
+class FolderGuard implements FolderGuardInterface
 {
     /**
-     * Checks if the user can create a new document in the folder.
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToCreateDocument(Folder $folder, UserInterface $user = null)
     {
@@ -29,11 +24,7 @@ class FolderGuard
     }
 
     /**
-     * Checks if the user can send the folder to an another user.
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToSendFolderToUser(Folder $folder, UserInterface $user = null)
     {
@@ -43,12 +34,7 @@ class FolderGuard
     }
 
     /**
-     * Checks if the user can rename the folder.
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToRename(Folder $folder, UserInterface $user = null)
     {
@@ -73,12 +59,7 @@ class FolderGuard
     }
 
     /**
-     * Checks if the user can show some information about the folder.
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToShow(Folder $folder, UserInterface $user = null)
     {
@@ -88,12 +69,7 @@ class FolderGuard
     }
 
     /**
-     * Can the user show some information about the folder ?
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canShow(Folder $folder, UserInterface $user = null): bool
     {
@@ -113,12 +89,7 @@ class FolderGuard
     }
 
     /**
-     * Can the user create a new document in the folder ?
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canCreateDocument(Folder $folder, UserInterface $user = null): bool
     {
@@ -136,12 +107,7 @@ class FolderGuard
     }
 
     /**
-     * Can the user send the folder?
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canSendFolderToUser(Folder $folder, UserInterface $user = null): bool
     {
@@ -153,12 +119,7 @@ class FolderGuard
     }
 
     /**
-     * Can the user rename the folder ?
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canRename(Folder $folder, UserInterface $user = null): bool
     {
@@ -176,12 +137,7 @@ class FolderGuard
     }
 
     /**
-     * Can the user remove the folder ?
-     *
-     * @param Folder $folder
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canRemove(Folder $folder, UserInterface $user = null): bool
     {

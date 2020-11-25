@@ -9,8 +9,8 @@ use App\Exception\NotFoundEntityException;
 use App\Exception\UnauthorizedException;
 use App\Repository\DocumentRepository;
 use App\Repository\FolderRepository;
-use App\Security\DocumentGuard;
-use App\Security\FolderGuard;
+use App\Security\DocumentGuardInterface;
+use App\Security\FolderGuardInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -28,21 +28,21 @@ class FolderAjaxController extends AbstractController
 {
     private FolderRepository $folderRepository;
     private DocumentRepository $documentRepository;
-    private FolderGuard $folderGuard;
-    private DocumentGuard $documentGuard;
+    private FolderGuardInterface $folderGuard;
+    private DocumentGuardInterface $documentGuard;
 
     /**
      * FolderAjaxController constructor.
      *
      * @param DocumentRepository $documentRepository
      * @param FolderRepository $folderRepository
-     * @param FolderGuard $folderGuard
-     * @param DocumentGuard $documentGuard
+     * @param FolderGuardInterface $folderGuard
+     * @param DocumentGuardInterface $documentGuard
      */
     public function __construct(DocumentRepository $documentRepository,
                                 FolderRepository $folderRepository,
-                                FolderGuard $folderGuard,
-                                DocumentGuard $documentGuard
+                                FolderGuardInterface $folderGuard,
+                                DocumentGuardInterface $documentGuard
     )
     {
         $this->documentRepository = $documentRepository;

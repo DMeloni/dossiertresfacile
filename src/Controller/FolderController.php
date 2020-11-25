@@ -6,7 +6,7 @@ use App\Entity\Folder;
 use App\Exception\NotFoundEntityException;
 use App\Exception\UnauthorizedException;
 use App\Repository\FolderRepository;
-use App\Security\FolderGuard;
+use App\Security\FolderGuardInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 class FolderController extends AbstractController
 {
     protected FolderRepository $folderRepository;
-    protected FolderGuard $folderGuard;
+    protected FolderGuardInterface $folderGuard;
     protected EntityManagerInterface $entityManager;
 
     /**
@@ -28,9 +28,9 @@ class FolderController extends AbstractController
      *
      * @param EntityManagerInterface $entityManager
      * @param FolderRepository $folderRepository
-     * @param FolderGuard $folderGuard
+     * @param FolderGuardInterface $folderGuard
      */
-    public function __construct(EntityManagerInterface $entityManager, FolderRepository $folderRepository, FolderGuard $folderGuard)
+    public function __construct(EntityManagerInterface $entityManager, FolderRepository $folderRepository, FolderGuardInterface $folderGuard)
     {
         $this->entityManager = $entityManager;
         $this->folderRepository = $folderRepository;

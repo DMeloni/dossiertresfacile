@@ -12,14 +12,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *
  * @package App\Security
  */
-class DocumentGuard
+class DocumentGuard implements DocumentGuardInterface
 {
     /**
-     * Checks if the user can download the document.
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToDownload(Document $document, UserInterface $user = null)
     {
@@ -29,12 +25,7 @@ class DocumentGuard
     }
 
     /**
-     * Checks if the user can remove the document.
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToRemove(Document $document, UserInterface $user = null)
     {
@@ -44,12 +35,7 @@ class DocumentGuard
     }
 
     /**
-     * Checks if the user can upload the document.
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToUpload(Document $document, UserInterface $user = null)
     {
@@ -59,12 +45,7 @@ class DocumentGuard
     }
 
     /**
-     * Checks if the use can clear the document.
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToClear(Document $document, UserInterface $user = null)
     {
@@ -74,12 +55,7 @@ class DocumentGuard
     }
 
     /**
-     * Checks if the use can rename the document.
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @throws UnauthorizedException
+     * @inheritDoc
      */
     public function isGrantedToRename(Document $document, UserInterface $user = null)
     {
@@ -89,12 +65,7 @@ class DocumentGuard
     }
 
     /**
-     * Can the user remove the document ?
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canRemove(Document $document, UserInterface $user = null): bool
     {
@@ -111,12 +82,7 @@ class DocumentGuard
     }
 
     /**
-     * Can the user upload the document ?
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canUpload(Document $document, UserInterface $user = null): bool
     {
@@ -144,12 +110,7 @@ class DocumentGuard
     }
 
     /**
-     * Can the user download the document ?
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canDownload(Document $document, UserInterface $user = null): bool
     {
@@ -171,12 +132,7 @@ class DocumentGuard
     }
 
     /**
-     * Can the user clear the document ?
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canClear(Document $document, UserInterface $user = null): bool
     {
@@ -204,12 +160,7 @@ class DocumentGuard
     }
 
     /**
-     * Can the user rename the document ?
-     *
-     * @param Document $document
-     * @param UserInterface|null $user
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function canRename(Document $document, UserInterface $user = null): bool
     {
