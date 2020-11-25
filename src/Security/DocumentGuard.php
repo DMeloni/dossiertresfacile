@@ -4,19 +4,38 @@ namespace App\Security;
 
 use App\Entity\Document;
 use App\Entity\Folder;
-use App\Entity\User;
 use App\Exception\UnauthorizedException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class DocumentGuard
+ *
+ * @package App\Security
+ */
 class DocumentGuard
 {
-
+    /**
+     * Checks if the user can download the document.
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     * @throws UnauthorizedException
+     */
     public function isGrantedToDownload(Document $document, UserInterface $user = null)
     {
         if (!$this->canDownload($document, $user)) {
             throw new UnauthorizedException();
         }
     }
+
+    /**
+     * Checks if the user can remove the document.
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @throws UnauthorizedException
+     */
     public function isGrantedToRemove(Document $document, UserInterface $user = null)
     {
         if (!$this->canRemove($document, $user)) {
@@ -25,8 +44,11 @@ class DocumentGuard
     }
 
     /**
+     * Checks if the user can upload the document.
+     *
      * @param Document $document
      * @param UserInterface|null $user
+     *
      * @throws UnauthorizedException
      */
     public function isGrantedToUpload(Document $document, UserInterface $user = null)
@@ -35,12 +57,30 @@ class DocumentGuard
             throw new UnauthorizedException();
         }
     }
+
+    /**
+     * Checks if the use can clear the document.
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @throws UnauthorizedException
+     */
     public function isGrantedToClear(Document $document, UserInterface $user = null)
     {
         if (!$this->canClear($document, $user)) {
             throw new UnauthorizedException();
         }
     }
+
+    /**
+     * Checks if the use can rename the document.
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @throws UnauthorizedException
+     */
     public function isGrantedToRename(Document $document, UserInterface $user = null)
     {
         if (!$this->canRename($document, $user)) {
@@ -48,7 +88,15 @@ class DocumentGuard
         }
     }
 
-    public function canRemove(Document $document, UserInterface $user = null)
+    /**
+     * Can the user remove the document ?
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @return bool
+     */
+    public function canRemove(Document $document, UserInterface $user = null): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -62,7 +110,15 @@ class DocumentGuard
         return false;
     }
 
-    public function canUpload(Document $document, UserInterface $user = null)
+    /**
+     * Can the user upload the document ?
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @return bool
+     */
+    public function canUpload(Document $document, UserInterface $user = null): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -87,7 +143,15 @@ class DocumentGuard
         return false;
     }
 
-    public function canDownload(Document $document, UserInterface $user = null)
+    /**
+     * Can the user download the document ?
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @return bool
+     */
+    public function canDownload(Document $document, UserInterface $user = null): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING &&
             $document->getState() === Document::UPLOADED_STATE) {
@@ -106,7 +170,15 @@ class DocumentGuard
         return false;
     }
 
-    public function canClear(Document $document, UserInterface $user = null)
+    /**
+     * Can the user clear the document ?
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @return bool
+     */
+    public function canClear(Document $document, UserInterface $user = null): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -131,7 +203,15 @@ class DocumentGuard
         return false;
     }
 
-    public function canRename(Document $document, UserInterface $user = null)
+    /**
+     * Can the user rename the document ?
+     *
+     * @param Document $document
+     * @param UserInterface|null $user
+     *
+     * @return bool
+     */
+    public function canRename(Document $document, UserInterface $user = null): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;

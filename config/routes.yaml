@@ -4,7 +4,7 @@ imports:
 
 index:
     path: /
-    controller: App\Controller\DefaultController::index
+    controller: App\Controller\HomeController::index
 
 folder:
     path: /folder/

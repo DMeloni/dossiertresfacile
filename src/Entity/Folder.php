@@ -20,7 +20,7 @@ class Folder
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    protected int $id;
 
     /**
      * @ORM\Column(type="datetime")
@@ -38,42 +38,43 @@ class Folder
      * @ORM\Column(type="boolean")
      * @var bool
      */
-    protected $isStandard = false;
+    protected bool $isStandard = false;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $name;
+    protected string $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
+     * @var string|null
      */
-    private $ownerEmail;
+    protected $ownerEmail = null;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @var string
+     * @var string|null
      */
-    private $userEmail;
+    protected $userEmail = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $category;
+    protected string $category;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
      */
-    private $status = self::STATUS_CREATING;
+    protected string $status = self::STATUS_CREATING;
 
     /**
      * @ORM\OneToMany(targetEntity="Document", mappedBy="folder")
+     * @var Document[]
      */
-    private $documents;
+    protected $documents;
 
     /**
      * @return int
@@ -86,9 +87,9 @@ class Folder
     /**
      * @param int $id
      *
-     * @return Folder
+     * @return self
      */
-    public function setId(int $id)
+    public function setId(int $id): self
     {
         $this->id = $id;
 
@@ -111,7 +112,8 @@ class Folder
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function updateModifiedDatetime() {
+    public function updateModifiedDatetime()
+    {
         // update the modified time
         $this->setUpdatedAt(new \DateTime());
     }
@@ -185,9 +187,9 @@ class Folder
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -207,7 +209,7 @@ class Folder
     /**
      * @return string
      */
-    public function getCategory()
+    public function getCategory(): string
     {
         return $this->category;
     }
@@ -217,7 +219,7 @@ class Folder
      *
      * @return self
      */
-    public function setCategory($category): self
+    public function setCategory(string $category): self
     {
         $this->category = $category;
 
@@ -227,7 +229,7 @@ class Folder
     /**
      * @return string
      */
-    public function getStatus()
+    public function getStatus(): string
     {
         return $this->status;
     }
@@ -265,7 +267,7 @@ class Folder
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getOwnerEmail()
     {
@@ -273,7 +275,7 @@ class Folder
     }
 
     /**
-     * @param string $ownerEmail
+     * @param string|null $ownerEmail
      *
      * @return self
      */
@@ -285,7 +287,7 @@ class Folder
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getUserEmail()
     {
@@ -293,7 +295,7 @@ class Folder
     }
 
     /**
-     * @param string $userEmail
+     * @param string|null $userEmail
      *
      * @return self
      */

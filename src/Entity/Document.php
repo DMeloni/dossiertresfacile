@@ -17,58 +17,62 @@ class Document
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @var int
      */
-    private $id;
+    protected int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
-    private $name;
+    protected string $name;
 
     /**
      * @ORM\Column(type="boolean")
+     * @var bool
      */
-    private $isMandatory = true;
+    protected bool $isMandatory = true;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
-    private $state = self::EMPTY_STATE;
+    protected string $state = self::EMPTY_STATE;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
      */
-    private $content = "";
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $sample = "";
+    protected string $content = "";
 
     /**
      * @ORM\ManyToOne(targetEntity="Folder")
      * @ORM\JoinColumn(name="folder_id", referencedColumnName="id")
      * @var Folder
      */
-    private $folder;
+    private Folder $folder;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $updatedAt;
 
     /**
      * @ORM\Column(type="datetime")
-     * @var \DateTime
+     * @var \DateTime|null
      */
     protected $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
      */
-    private $ownerEmail;
+    protected $ownerEmail;
 
+    /**
+     * Document constructor.
+     */
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
@@ -81,23 +85,25 @@ class Document
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function updateModifiedDatetime() {
+    public function updateModifiedDatetime()
+    {
         $this->setUpdatedAt(new \DateTime());
     }
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
-     * @return Document
+     * @param int $id
+     *
+     * @return self
      */
-    public function setId($id)
+    public function setId($id): self
     {
         $this->id = $id;
         return $this;
@@ -126,17 +132,17 @@ class Document
     /**
      * @return bool
      */
-    public function getIsMandatory()
+    public function getIsMandatory(): bool
     {
         return $this->isMandatory;
     }
 
     /**
-     * @param mixed $isMandatory
+     * @param bool $isMandatory
      *
      * @return self
      */
-    public function setIsMandatory($isMandatory): self
+    public function setIsMandatory(bool $isMandatory): self
     {
         $this->isMandatory = $isMandatory;
 
@@ -146,17 +152,17 @@ class Document
     /**
      * @return string
      */
-    public function getState()
+    public function getState(): string
     {
         return $this->state;
     }
 
     /**
-     * @param mixed $state
+     * @param string $state
      *
      * @return self
      */
-    public function setState($state): self
+    public function setState(string $state): self
     {
         $this->state = $state;
 
@@ -166,39 +172,19 @@ class Document
     /**
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         return $this->content;
     }
 
     /**
-     * @param self $content
+     * @param string $content
      *
      * @return self
      */
-    public function setContent($content): self
+    public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSample()
-    {
-        return $this->sample;
-    }
-
-    /**
-     * @param mixed $sample
-     *
-     * @return self
-     */
-    public function setSample($sample): self
-    {
-        $this->sample = $sample;
 
         return $this;
     }
@@ -224,7 +210,7 @@ class Document
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getOwnerEmail()
     {
@@ -232,7 +218,7 @@ class Document
     }
 
     /**
-     * @param mixed $ownerEmail
+     * @param string|null $ownerEmail
      *
      * @return self
      */

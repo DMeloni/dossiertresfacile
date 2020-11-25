@@ -34,7 +34,6 @@ class CreateSampleCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $owner = (new User())
-            ->setCompany('Aa')
             ->setEmail("gestionnaire@gmail.com")
             ->setRoles(['ROLE_ADMIN']);
         $owner->setPassword($this->passwordEncoder->encodePassword(
@@ -50,7 +49,6 @@ class CreateSampleCommand extends Command
         $em->clear();
 
         $user = (new User())
-            ->setCompany('Aa')
             ->setEmail("destinataire@gmail.com")
             ->setRoles(['ROLE_ADMIN']);
         $user->setPassword($this->passwordEncoder->encodePassword(

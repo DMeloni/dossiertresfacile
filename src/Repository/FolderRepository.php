@@ -10,14 +10,33 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+/**
+ * Class FolderRepository
+ *
+ * @package App\Repository
+ */
 class FolderRepository extends ServiceEntityRepository
 {
+    /**
+     * FolderRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Folder::class);
     }
 
-    public function getFromId($folderId) : Folder
+    /**
+     * Gets the folder from its id.
+     *
+     * @param int $folderId
+     *
+     * @return Folder
+     *
+     * @throws NotFoundEntityException
+     */
+    public function getFromId($folderId): Folder
     {
         $folder = $this->findOneById($folderId);
 
@@ -28,6 +47,15 @@ class FolderRepository extends ServiceEntityRepository
         return $folder;
     }
 
+    /**
+     * Saves the folder.
+     *
+     * @param Folder $folder
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     */
     public function saveFolder(Folder $folder)
     {
         $entityManager = $this->getEntityManager();
@@ -36,15 +64,45 @@ class FolderRepository extends ServiceEntityRepository
         $entityManager->clear();
     }
 
-    public function duplicateFromFolderCategory($folderId, UserInterface $user = null): Folder
+    /**
+     * Duplicates the first folder found in a specific category.
+     *
+     * @param string $folderCategory
+     * @param UserInterface|null $user
+     *
+     * @return Folder
+     */
+    public function duplicateFromFolderCategory(string $folderCategory, UserInterface $user = null): Folder
     {
-        return $this->duplicate($this->findOneBy(['category' => $folderId]), $user);
+        return $this->duplicate($this->findOneBy(['category' => $folderCategory]), $user);
     }
 
-    public function duplicateFromFolderId($folderId, UserInterface $user = null): Folder
+    /**
+     * Duplicates the folder from its id.
+     *
+     * @param int $folderId
+     * @param UserInterface|null $user
+     *
+     * @return Folder
+     */
+    public function duplicateFromFolderId(int $folderId, UserInterface $user = null): Folder
     {
         return $this->duplicate($this->findOneBy(['id' => $folderId]), $user);
     }
+
+    /**
+     * Duplicates the folder.
+     *
+     * @param Folder $folderToDuplicate
+     * @param User|null $user
+     *
+     * @return Folder
+     *
+     * @throws \Doctrine\DBAL\ConnectionException
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     */
     public function duplicate(Folder $folderToDuplicate, User $user = null): Folder
     {
         $em = $this->getEntityManager();

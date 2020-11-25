@@ -7,31 +7,44 @@ use App\Exception\NotFoundEntityException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * Class DocumentRepository
+ *
+ * @package App\Repository
+ */
 class DocumentRepository extends ServiceEntityRepository
 {
+    /**
+     * DocumentRepository constructor.
+     *
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Document::class);
     }
 
     /**
-     * @param $id
-     * @param $name
+     * Renames the document.
+     *
+     * @param Document $document
+     * @param string $name
      */
-    public function renameFromId($id, $name)
-    {
-        $document = $this->getFromId($id);
-
-        $this->rename($document, $name);
-    }
-
     public function rename(Document $document, string $name)
     {
         $document->setName($name);
         $this->saveDocument($document);
     }
 
-    public function getFromId($id)
+    /**
+     * Returns the document from its id.
+     *
+     * @param int $id
+     * @return Document
+     *
+     * @throws NotFoundEntityException
+     */
+    public function getFromId(int $id)
     {
         $document = $this->findOneBy(['id' => $id]);
 
@@ -42,6 +55,15 @@ class DocumentRepository extends ServiceEntityRepository
         return $document;
     }
 
+    /**
+     * Saves the document.
+     *
+     * @param Document $document
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
+     */
     public function saveDocument(Document $document)
     {
         $entityManager = $this->getEntityManager();
@@ -52,17 +74,30 @@ class DocumentRepository extends ServiceEntityRepository
     }
 
     /**
+     * Clears the document.
+     *
      * @param Document $document
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
      */
     public function clearDocument(Document $document)
     {
         $document->setOwnerEmail(null);
         $document->setState(Document::EMPTY_STATE);
+        $document->setContent('');
         $this->saveDocument($document);
     }
 
     /**
+     * Removes the document.
+     *
      * @param Document $document
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\Persistence\Mapping\MappingException
      */
     public function removeDocument(Document $document)
     {

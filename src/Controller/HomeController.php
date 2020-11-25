@@ -6,19 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class ProfileController
+ * Class HomeController
  *
  * @package App\Controller
  */
-class ProfileController extends AbstractController
+class HomeController extends AbstractController
 {
     /**
-     * Returns the uniq profile page.
+     * Returns the homepage.
      *
      * @return Response
      */
     public function index(): Response
     {
-        return $this->render('profile.html.twig');
+        return $this->render('base.html.twig');
     }
 }

@@ -17,43 +17,37 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @var int
      */
-    private $id;
+    protected int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @var string
      */
-    private $email;
+    protected string $email;
 
     /**
      * @ORM\Column(type="json")
      * @var string[]
      */
-    private $roles = [];
+    protected $roles = [];
 
     /**
      * @ORM\Column(type="string")
      * @var string
      */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @var string
-     */
-    private $company;
+    protected $password;
 
     /**
      * @ORM\ManyToMany(targetEntity="Folder", inversedBy="owners")
      * @ORM\JoinTable(name="owners_folders")
      */
-    private $ownedFolders;
+    protected $ownedFolders;
 
     /**
      * @ORM\ManyToMany(targetEntity="Folder", inversedBy="users")
      * @ORM\JoinTable(name="users_folders")
      */
-    private $usedFolders;
+    protected $usedFolders;
 
     /**
      * User constructor.
@@ -62,25 +56,6 @@ class User implements UserInterface
      */
     public function __construct()
     {
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCompany(): string
-    {
-        return $this->company;
-    }
-
-    /**
-     * @param string $company
-     *
-     * @return User
-     */
-    public function setCompany(string $company): self
-    {
-        $this->company = $company;
         return $this;
     }
 
@@ -121,16 +96,27 @@ class User implements UserInterface
         return $this->usedFolders;
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getEmail(): ?string
     {
         return $this->email;
     }
 
+    /**
+     * @param string $email
+     *
+     * @return self
+     */
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -142,6 +128,8 @@ class User implements UserInterface
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUsername(): string
     {
@@ -150,6 +138,8 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return string[]
      */
     public function getRoles(): array
     {
@@ -160,6 +150,11 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @param string[] $roles
+     *
+     * @return self
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -169,12 +164,19 @@ class User implements UserInterface
 
     /**
      * @see UserInterface
+     *
+     * @return string
      */
     public function getPassword(): string
     {
         return (string) $this->password;
     }
 
+    /**
+     * @param string $password
+     *
+     * @return self
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;

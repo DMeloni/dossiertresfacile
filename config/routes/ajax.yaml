@@ -9,7 +9,7 @@ folder.get.ajax:
 
 folder.ajax:
   path: /ajax/folder
-  controller: App\Controller\Ajax\FolderAjaxController::index
+  controller: App\Controller\Ajax\FolderAjaxController::uploadDocument
 
 folder.clear-document.ajax:
   path: /ajax/folder/clear-document
@@ -34,7 +34,6 @@ folder.remove-document-from-folder.ajax:
 folder.send.ajax:
   path: /ajax/folder/send
   controller: App\Controller\Ajax\FolderAjaxController::send
-
 
 folder.download-document.ajax:
   path: /ajax/folder/download-document

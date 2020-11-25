@@ -12,12 +12,24 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class FolderController
+ *
+ * @package App\Controller
+ */
 class FolderController extends AbstractController
 {
-    private FolderRepository $folderRepository;
-    private FolderGuard $folderGuard;
-    private EntityManagerInterface $entityManager;
+    protected FolderRepository $folderRepository;
+    protected FolderGuard $folderGuard;
+    protected EntityManagerInterface $entityManager;
 
+    /**
+     * FolderController constructor.
+     *
+     * @param EntityManagerInterface $entityManager
+     * @param FolderRepository $folderRepository
+     * @param FolderGuard $folderGuard
+     */
     public function __construct(EntityManagerInterface $entityManager, FolderRepository $folderRepository, FolderGuard $folderGuard)
     {
         $this->entityManager = $entityManager;
@@ -25,13 +37,23 @@ class FolderController extends AbstractController
         $this->folderGuard = $folderGuard;
     }
 
+    /**
+     * Returns the current user folders page.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function index(Request $request): Response
     {
         return $this->render('folder.html.twig');
     }
 
     /**
+     * Displays the page to edit the folder.
+     *
      * @param Request $request
+     *
      * @return Response
      */
     public function edit(Request $request): Response
@@ -62,23 +84,40 @@ class FolderController extends AbstractController
         ]);
     }
 
+    /**
+     * Displays the page to edit the new folder.
+     *
+     * @param Request $request
+     * @return Response
+     */
     public function create(Request $request): Response
     {
         $folderRepository = $this->folderRepository;
         $currentUser = $this->getUser();
 
-        $folder = (new Folder())
-            ->setName('Dossier de location')
-            ->setCategory('joij')
-            ->setOwnerEmail($currentUser !== null?$currentUser->getEmail():'')
-            ->setIsStandard(true);
+        try {
+            $folder = (new Folder())
+                ->setName('Dossier de location')
+                ->setCategory('joij')
+                ->setOwnerEmail($currentUser !== null?$currentUser->getEmail():'')
+                ->setIsStandard(true);
 
-        $folderRepository->saveFolder($folder);
+            $folderRepository->saveFolder($folder);
 
-        return $this->redirectToRoute('editFolder', ['folder-id' => $folder->getId()]);
+            return $this->redirectToRoute('editFolder', ['folder-id' => $folder->getId()]);
+
+        } catch (\Exception | NotFoundEntityException | UnauthorizedException $e) {
+            return $this->redirectToRoute('error', ['errorCode' => $e->getCode()]);
+        }
     }
 
-
+    /**
+     * Displays the page to edit the new folder created from a template folder.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function createFromTemplate(Request $request): Response
     {
         $folderRepository = $this->folderRepository;
@@ -90,6 +129,13 @@ class FolderController extends AbstractController
         return $this->redirectToRoute('editFolder', ['folder-id' => $duplicatedFolder->getId()]);
     }
 
+    /**
+     * Displays the page to edit the duplicated folder.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function duplicate(Request $request): Response
     {
         $folderRepository = $this->folderRepository;
@@ -101,6 +147,13 @@ class FolderController extends AbstractController
         return $this->redirectToRoute('editFolder', ['folder-id' => $duplicatedFolder->getId()]);
     }
 
+    /**
+     * Displays the confirmation page of the removed folder.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
     public function remove(Request $request): Response
     {
         $folderGuard = $this->folderGuard;
@@ -116,7 +169,7 @@ class FolderController extends AbstractController
             $folderRepository->saveFolder($folder);
 
             return $this->render('folder-removing-confirmation.twig');
-        } catch (NotFoundEntityException | UnauthorizedException $e) {
+        } catch (\Exception | NotFoundEntityException | UnauthorizedException $e) {
             return $this->redirectToRoute('error', ['errorCode' => $e->getCode()]);
         }
     }
