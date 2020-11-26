@@ -50,13 +50,13 @@ class Folder
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
-    protected $ownerEmail = null;
+    protected ?string $ownerEmail;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var string|null
      */
-    protected $userEmail = null;
+    protected ?string $userEmail;
 
     /**
      * @ORM\Column(type="string", length=255)

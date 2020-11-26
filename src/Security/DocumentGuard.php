@@ -16,7 +16,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToDownload(Document $document, UserInterface $user = null)
+    public function isGrantedToDownload(Document $document, ?UserInterface $user)
     {
         if (!$this->canDownload($document, $user)) {
             throw new UnauthorizedException();
@@ -26,7 +26,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToRemove(Document $document, UserInterface $user = null)
+    public function isGrantedToRemove(Document $document, ?UserInterface $user)
     {
         if (!$this->canRemove($document, $user)) {
             throw new UnauthorizedException();
@@ -36,7 +36,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToUpload(Document $document, UserInterface $user = null)
+    public function isGrantedToUpload(Document $document, ?UserInterface $user)
     {
         if (!$this->canUpload($document, $user)) {
             throw new UnauthorizedException();
@@ -46,7 +46,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToClear(Document $document, UserInterface $user = null)
+    public function isGrantedToClear(Document $document, ?UserInterface $user)
     {
         if (!$this->canClear($document, $user)) {
             throw new UnauthorizedException();
@@ -56,7 +56,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToRename(Document $document, UserInterface $user = null)
+    public function isGrantedToRename(Document $document, ?UserInterface $user)
     {
         if (!$this->canRename($document, $user)) {
             throw new UnauthorizedException();
@@ -66,7 +66,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function canRemove(Document $document, UserInterface $user = null): bool
+    public function canRemove(Document $document, ?UserInterface $user): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -83,7 +83,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function canUpload(Document $document, UserInterface $user = null): bool
+    public function canUpload(Document $document, ?UserInterface $user): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -111,7 +111,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function canDownload(Document $document, UserInterface $user = null): bool
+    public function canDownload(Document $document, ?UserInterface $user): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING &&
             $document->getState() === Document::UPLOADED_STATE) {
@@ -133,7 +133,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function canClear(Document $document, UserInterface $user = null): bool
+    public function canClear(Document $document, ?UserInterface $user): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -161,7 +161,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function canRename(Document $document, UserInterface $user = null): bool
+    public function canRename(Document $document, ?UserInterface $user): bool
     {
         if ($document->getFolder()->getStatus() === Folder::STATUS_CREATING) {
             return true;

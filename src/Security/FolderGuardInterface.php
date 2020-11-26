@@ -21,7 +21,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToCreateDocument(Folder $folder, UserInterface $user = null);
+    public function isGrantedToCreateDocument(Folder $folder, ?UserInterface $user);
 
     /**
      * Checks if the user can send the folder to an another user.
@@ -30,7 +30,7 @@ interface FolderGuardInterface
      * @param UserInterface|null $user
      * @throws UnauthorizedException
      */
-    public function isGrantedToSendFolderToUser(Folder $folder, UserInterface $user = null);
+    public function isGrantedToSendFolderToUser(Folder $folder, ?UserInterface $user);
 
     /**
      * Checks if the user can rename the folder.
@@ -40,7 +40,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRename(Folder $folder, UserInterface $user = null);
+    public function isGrantedToRename(Folder $folder, ?UserInterface $user);
 
     /**
      * Checks if the user can remove the folder.
@@ -50,7 +50,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRemove(Folder $folder, UserInterface $user = null);
+    public function isGrantedToRemove(Folder $folder, ?UserInterface $user);
 
     /**
      * Checks if the user can show some information about the folder.
@@ -60,7 +60,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToShow(Folder $folder, UserInterface $user = null);
+    public function isGrantedToShow(Folder $folder, ?UserInterface $user);
 
     /**
      * Can the user show some information about the folder ?
@@ -70,7 +70,7 @@ interface FolderGuardInterface
      *
      * @return bool
      */
-    public function canShow(Folder $folder, UserInterface $user = null): bool;
+    public function canShow(Folder $folder, ?UserInterface $user): bool;
 
     /**
      * Can the user create a new document in the folder ?
@@ -80,7 +80,7 @@ interface FolderGuardInterface
      *
      * @return bool
      */
-    public function canCreateDocument(Folder $folder, UserInterface $user = null): bool;
+    public function canCreateDocument(Folder $folder, ?UserInterface $user): bool;
 
     /**
      * Can the user send the folder?
@@ -90,7 +90,7 @@ interface FolderGuardInterface
      *
      * @return bool
      */
-    public function canSendFolderToUser(Folder $folder, UserInterface $user = null): bool;
+    public function canSendFolderToUser(Folder $folder, ?UserInterface $user): bool;
 
     /**
      * Can the user rename the folder ?
@@ -100,7 +100,7 @@ interface FolderGuardInterface
      *
      * @return bool
      */
-    public function canRename(Folder $folder, UserInterface $user = null): bool;
+    public function canRename(Folder $folder, ?UserInterface $user): bool;
 
     /**
      * Can the user remove the folder ?
@@ -110,5 +110,5 @@ interface FolderGuardInterface
      *
      * @return bool
      */
-    public function canRemove(Folder $folder, UserInterface $user = null): bool;
+    public function canRemove(Folder $folder, ?UserInterface $user): bool;
 }

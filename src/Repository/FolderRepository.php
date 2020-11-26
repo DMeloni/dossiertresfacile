@@ -70,7 +70,7 @@ class FolderRepository extends ServiceEntityRepository
      *
      * @return Folder
      */
-    public function duplicateFromFolderCategory(string $folderCategory, UserInterface $user = null): Folder
+    public function duplicateFromFolderCategory(string $folderCategory, ?UserInterface $user): Folder
     {
         return $this->duplicate($this->findOneBy(['category' => $folderCategory]), $user);
     }
@@ -83,7 +83,7 @@ class FolderRepository extends ServiceEntityRepository
      *
      * @return Folder
      */
-    public function duplicateFromFolderId(int $folderId, UserInterface $user = null): Folder
+    public function duplicateFromFolderId(int $folderId, ?UserInterface $user): Folder
     {
         return $this->duplicate($this->findOneBy(['id' => $folderId]), $user);
     }
@@ -101,7 +101,7 @@ class FolderRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    public function duplicate(Folder $folderToDuplicate, User $user = null): Folder
+    public function duplicate(Folder $folderToDuplicate, ?User $user): Folder
     {
         $em = $this->getEntityManager();
 

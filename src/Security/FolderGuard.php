@@ -16,7 +16,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToCreateDocument(Folder $folder, UserInterface $user = null)
+    public function isGrantedToCreateDocument(Folder $folder, ?UserInterface $user)
     {
         if (!$this->canCreateDocument($folder, $user)) {
             throw new UnauthorizedException();
@@ -26,7 +26,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToSendFolderToUser(Folder $folder, UserInterface $user = null)
+    public function isGrantedToSendFolderToUser(Folder $folder, ?UserInterface $user)
     {
         if (!$this->canSendFolderToUser($folder, $user)) {
             throw new UnauthorizedException();
@@ -36,7 +36,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToRename(Folder $folder, UserInterface $user = null)
+    public function isGrantedToRename(Folder $folder, ?UserInterface $user)
     {
         if (!$this->canSendFolderToUser($folder, $user)) {
             throw new UnauthorizedException();
@@ -51,7 +51,7 @@ class FolderGuard implements FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRemove(Folder $folder, UserInterface $user = null)
+    public function isGrantedToRemove(Folder $folder, ?UserInterface $user)
     {
         if (!$this->canSendFolderToUser($folder, $user)) {
             throw new UnauthorizedException();
@@ -61,7 +61,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToShow(Folder $folder, UserInterface $user = null)
+    public function isGrantedToShow(Folder $folder, ?UserInterface $user)
     {
         if (!$this->canShow($folder, $user)) {
             throw new UnauthorizedException();
@@ -71,7 +71,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function canShow(Folder $folder, UserInterface $user = null): bool
+    public function canShow(Folder $folder, ?UserInterface $user): bool
     {
         if ($folder->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -91,7 +91,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function canCreateDocument(Folder $folder, UserInterface $user = null): bool
+    public function canCreateDocument(Folder $folder, ?UserInterface $user): bool
     {
         if ($folder->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -109,7 +109,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function canSendFolderToUser(Folder $folder, UserInterface $user = null): bool
+    public function canSendFolderToUser(Folder $folder, ?UserInterface $user): bool
     {
         if ($folder->getStatus() === Folder::STATUS_CREATING && count($folder->getDocuments()) > 0) {
             return true;
@@ -121,7 +121,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function canRename(Folder $folder, UserInterface $user = null): bool
+    public function canRename(Folder $folder, ?UserInterface $user): bool
     {
         if ($folder->getStatus() === Folder::STATUS_CREATING) {
             return true;
@@ -139,7 +139,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function canRemove(Folder $folder, UserInterface $user = null): bool
+    public function canRemove(Folder $folder, ?UserInterface $user): bool
     {
         if ($folder->getStatus() === Folder::STATUS_CREATING) {
             return true;

@@ -20,7 +20,7 @@ interface DocumentGuardInterface
      * @param UserInterface|null $user
      * @throws UnauthorizedException
      */
-    public function isGrantedToDownload(Document $document, UserInterface $user = null);
+    public function isGrantedToDownload(Document $document, ?UserInterface $user);
 
     /**
      * Checks if the user can remove the document.
@@ -30,7 +30,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRemove(Document $document, UserInterface $user = null);
+    public function isGrantedToRemove(Document $document, ?UserInterface $user);
 
     /**
      * Checks if the user can upload the document.
@@ -40,7 +40,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToUpload(Document $document, UserInterface $user = null);
+    public function isGrantedToUpload(Document $document, ?UserInterface $user);
 
     /**
      * Checks if the use can clear the document.
@@ -50,7 +50,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToClear(Document $document, UserInterface $user = null);
+    public function isGrantedToClear(Document $document, ?UserInterface $user);
 
     /**
      * Checks if the use can rename the document.
@@ -60,7 +60,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRename(Document $document, UserInterface $user = null);
+    public function isGrantedToRename(Document $document, ?UserInterface $user);
 
     /**
      * Can the user remove the document ?
@@ -70,7 +70,7 @@ interface DocumentGuardInterface
      *
      * @return bool
      */
-    public function canRemove(Document $document, UserInterface $user = null): bool;
+    public function canRemove(Document $document, ?UserInterface $user): bool;
 
     /**
      * Can the user upload the document ?
@@ -80,7 +80,7 @@ interface DocumentGuardInterface
      *
      * @return bool
      */
-    public function canUpload(Document $document, UserInterface $user = null): bool;
+    public function canUpload(Document $document, ?UserInterface $user): bool;
 
     /**
      * Can the user download the document ?
@@ -90,7 +90,7 @@ interface DocumentGuardInterface
      *
      * @return bool
      */
-    public function canDownload(Document $document, UserInterface $user = null): bool;
+    public function canDownload(Document $document, ?UserInterface $user): bool;
 
     /**
      * Can the user clear the document ?
@@ -100,7 +100,7 @@ interface DocumentGuardInterface
      *
      * @return bool
      */
-    public function canClear(Document $document, UserInterface $user = null): bool;
+    public function canClear(Document $document, ?UserInterface $user): bool;
 
     /**
      * Can the user rename the document ?
@@ -110,5 +110,5 @@ interface DocumentGuardInterface
      *
      * @return bool
      */
-    public function canRename(Document $document, UserInterface $user = null): bool;
+    public function canRename(Document $document, ?UserInterface $user): bool;
 }
