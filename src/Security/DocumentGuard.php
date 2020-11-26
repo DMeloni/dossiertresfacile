@@ -2,8 +2,7 @@
 
 namespace App\Security;
 
-use App\Entity\Document;
-use App\Entity\Folder;
+use App\Entity\{Document, Folder};
 use App\Exception\UnauthorizedException;
 use Symfony\Component\Security\Core\User\UserInterface;
 

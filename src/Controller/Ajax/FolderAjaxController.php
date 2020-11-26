@@ -2,22 +2,13 @@
 
 namespace App\Controller\Ajax;
 
-use App\Entity\Document;
-use App\Entity\Folder;
-use App\Exception\InternalErrorException;
-use App\Exception\NotFoundEntityException;
-use App\Exception\UnauthorizedException;
-use App\Repository\DocumentRepository;
-use App\Repository\FolderRepository;
-use App\Security\DocumentGuardInterface;
-use App\Security\FolderGuardInterface;
+use App\Entity\{Document, Folder};
+use App\Exception\{InternalErrorException, NotFoundEntityException, UnauthorizedException};
+use App\Repository\{DocumentRepository, FolderRepository};
+use App\Security\{DocumentGuardInterface, FolderGuardInterface};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\{BinaryFileResponse, File\UploadedFile, JsonResponse};
+use Symfony\Component\HttpFoundation\{Request, Response, ResponseHeaderBag};
 
 /**
  * Class FolderAjaxController

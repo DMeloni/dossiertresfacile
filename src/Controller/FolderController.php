@@ -3,14 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Folder;
-use App\Exception\NotFoundEntityException;
-use App\Exception\UnauthorizedException;
+use App\Exception\{NotFoundEntityException, UnauthorizedException};
 use App\Repository\FolderRepository;
 use App\Security\FolderGuardInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\{Request, Response};
 
 /**
  * Class FolderController

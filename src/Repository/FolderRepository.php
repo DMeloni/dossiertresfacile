@@ -2,9 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\Document;
-use App\Entity\Folder;
-use App\Entity\User;
+use App\Entity\{Document, Folder, User};
 use App\Exception\NotFoundEntityException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
