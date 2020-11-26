@@ -106,7 +106,7 @@ class FolderController extends AbstractController
 
             return $this->redirectToRoute('editFolder', ['folder-id' => $folder->getId()]);
 
-        } catch (\Exception | NotFoundEntityException | UnauthorizedException $e) {
+        } catch (\Throwable | NotFoundEntityException | UnauthorizedException $e) {
             return $this->redirectToRoute('error', ['errorCode' => $e->getCode()]);
         }
     }
@@ -169,7 +169,7 @@ class FolderController extends AbstractController
             $folderRepository->saveFolder($folder);
 
             return $this->render('folder-removing-confirmation.twig');
-        } catch (\Exception | NotFoundEntityException | UnauthorizedException $e) {
+        } catch (\Throwable | NotFoundEntityException | UnauthorizedException $e) {
             return $this->redirectToRoute('error', ['errorCode' => $e->getCode()]);
         }
     }

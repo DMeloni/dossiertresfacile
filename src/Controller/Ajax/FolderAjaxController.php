@@ -132,7 +132,7 @@ class FolderAjaxController extends AbstractController
             }
 
             return $this->json($folderToReturn);
-        } catch (NotFoundEntityException $e) {
+        } catch (\Throwable $e) {
             return $e->toJsonResponse();
         }
     }
@@ -171,7 +171,7 @@ class FolderAjaxController extends AbstractController
             $folderRepository->saveFolder($folder);
 
             return $this->json(['id' => $request->get('folder-id')], JsonResponse::HTTP_ACCEPTED);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
@@ -202,7 +202,7 @@ class FolderAjaxController extends AbstractController
             ], Response::HTTP_CREATED);
         } catch (NotFoundEntityException $e) {
             return $e->toJsonResponse();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
@@ -232,7 +232,7 @@ class FolderAjaxController extends AbstractController
             return $this->json(['id' => $folderId], JsonResponse::HTTP_ACCEPTED);
         } catch (NotFoundEntityException $e) {
             return $e->toJsonResponse();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
@@ -261,7 +261,7 @@ class FolderAjaxController extends AbstractController
             return $this->json(['id' => $documentId], JsonResponse::HTTP_ACCEPTED);
         } catch (NotFoundEntityException | UnauthorizedException $e) {
             return $e->toJsonResponse();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
@@ -288,7 +288,7 @@ class FolderAjaxController extends AbstractController
             return $this->json(['id' => $documentId], JsonResponse::HTTP_ACCEPTED);
         } catch (NotFoundEntityException | UnauthorizedException $e) {
             return $e->toJsonResponse();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
@@ -315,7 +315,7 @@ class FolderAjaxController extends AbstractController
             return $this->json([], JsonResponse::HTTP_ACCEPTED);
         } catch (NotFoundEntityException | UnauthorizedException $e) {
             return $e->toJsonResponse();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
@@ -356,7 +356,7 @@ class FolderAjaxController extends AbstractController
             return $this->json(['name' => $uploadedFile->getClientOriginalName()], JsonResponse::HTTP_CREATED);
         } catch (NotFoundEntityException | UnauthorizedException $e) {
             return $e->toJsonResponse();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return InternalErrorException::toJsonResponse();
         }
     }
