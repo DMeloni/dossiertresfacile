@@ -7,8 +7,14 @@ use App\Exception\{InternalErrorException, NotFoundEntityException, Unauthorized
 use App\Repository\{DocumentRepository, FolderRepository};
 use App\Security\{DocumentGuardInterface, FolderGuardInterface};
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\{BinaryFileResponse, File\UploadedFile, JsonResponse};
-use Symfony\Component\HttpFoundation\{Request, Response, ResponseHeaderBag};
+use Symfony\Component\HttpFoundation\{
+    BinaryFileResponse,
+    File\UploadedFile,
+    JsonResponse,
+    Request,
+    Response,
+    ResponseHeaderBag,
+};
 
 /**
  * Class FolderAjaxController
