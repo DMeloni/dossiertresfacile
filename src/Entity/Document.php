@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Document
 {
-    const UPLOADED_STATE = 'uploaded';
-    const EMPTY_STATE = 'empty';
+    public const UPLOADED_STATE = 'uploaded';
+    public const EMPTY_STATE = 'empty';
 
     /**
      * @ORM\Id()

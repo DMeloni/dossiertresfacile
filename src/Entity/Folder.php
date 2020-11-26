@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Folder
 {
-    const STATUS_CREATING = 'creating';
-    const STATUS_IN_PROGRESS = 'in_progress';
-    const STATUS_DELETED = 'deleted';
+    public const STATUS_CREATING = 'creating';
+    public const STATUS_IN_PROGRESS = 'in_progress';
+    public const STATUS_DELETED = 'deleted';
 
     /**
      * @ORM\Id()
