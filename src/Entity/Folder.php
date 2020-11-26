@@ -112,7 +112,7 @@ class Folder
      * @ORM\PrePersist()
      * @ORM\PreUpdate()
      */
-    public function updateModifiedDatetime()
+    public function updateModifiedDatetime(): void
     {
         // update the modified time
         $this->setUpdatedAt(new \DateTime());
@@ -269,7 +269,7 @@ class Folder
     /**
      * @return string|null
      */
-    public function getOwnerEmail()
+    public function getOwnerEmail(): ?string
     {
         return $this->ownerEmail;
     }
@@ -289,7 +289,7 @@ class Folder
     /**
      * @return string|null
      */
-    public function getUserEmail()
+    public function getUserEmail(): ?string
     {
         return $this->userEmail;
     }

@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\{Request, Response};
+use Symfony\Component\HttpFoundation\{RedirectResponse, Request, Response};
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -38,8 +38,8 @@ class SecurityController extends AbstractController
      *
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
+    public function logout(): RedirectResponse
     {
-        $this->redirectToRoute('index');
+        return $this->redirectToRoute('index');
     }
 }

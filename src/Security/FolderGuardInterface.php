@@ -21,7 +21,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToCreateDocument(Folder $folder, ?UserInterface $user);
+    public function isGrantedToCreateDocument(Folder $folder, ?UserInterface $user): void;
 
     /**
      * Checks if the user can send the folder to an another user.
@@ -30,7 +30,7 @@ interface FolderGuardInterface
      * @param UserInterface|null $user
      * @throws UnauthorizedException
      */
-    public function isGrantedToSendFolderToUser(Folder $folder, ?UserInterface $user);
+    public function isGrantedToSendFolderToUser(Folder $folder, ?UserInterface $user): void;
 
     /**
      * Checks if the user can rename the folder.
@@ -40,7 +40,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRename(Folder $folder, ?UserInterface $user);
+    public function isGrantedToRename(Folder $folder, ?UserInterface $user): void;
 
     /**
      * Checks if the user can remove the folder.
@@ -50,7 +50,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRemove(Folder $folder, ?UserInterface $user);
+    public function isGrantedToRemove(Folder $folder, ?UserInterface $user): void;
 
     /**
      * Checks if the user can show some information about the folder.
@@ -60,7 +60,7 @@ interface FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToShow(Folder $folder, ?UserInterface $user);
+    public function isGrantedToShow(Folder $folder, ?UserInterface $user): void;
 
     /**
      * Can the user show some information about the folder ?

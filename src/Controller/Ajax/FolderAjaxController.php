@@ -174,7 +174,7 @@ class FolderAjaxController extends AbstractController
      *
      * @return JsonResponse
      */
-    public function createDocumentToFolder(Request $request)
+    public function createDocumentToFolder(Request $request): JsonResponse
     {
         try {
             $folderRepository = $this->folderRepository;

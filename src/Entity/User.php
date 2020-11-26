@@ -75,6 +75,7 @@ class User implements UserInterface
     public function setOwnedFolders($ownedFolders)
     {
         $this->ownedFolders = $ownedFolders;
+
         return $this;
     }
     /**
@@ -82,9 +83,10 @@ class User implements UserInterface
      *
      * @return self
      */
-    public function setUsedFolders($usedFolders)
+    public function setUsedFolders($usedFolders): self
     {
         $this->usedFolders = $usedFolders;
+
         return $this;
     }
 

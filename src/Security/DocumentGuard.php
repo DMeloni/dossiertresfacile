@@ -16,7 +16,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToDownload(Document $document, ?UserInterface $user)
+    public function isGrantedToDownload(Document $document, ?UserInterface $user): void
     {
         if (!$this->canDownload($document, $user)) {
             throw new UnauthorizedException();
@@ -26,7 +26,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToRemove(Document $document, ?UserInterface $user)
+    public function isGrantedToRemove(Document $document, ?UserInterface $user): void
     {
         if (!$this->canRemove($document, $user)) {
             throw new UnauthorizedException();
@@ -36,7 +36,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToUpload(Document $document, ?UserInterface $user)
+    public function isGrantedToUpload(Document $document, ?UserInterface $user): void
     {
         if (!$this->canUpload($document, $user)) {
             throw new UnauthorizedException();
@@ -46,7 +46,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToClear(Document $document, ?UserInterface $user)
+    public function isGrantedToClear(Document $document, ?UserInterface $user): void
     {
         if (!$this->canClear($document, $user)) {
             throw new UnauthorizedException();
@@ -56,7 +56,7 @@ class DocumentGuard implements DocumentGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToRename(Document $document, ?UserInterface $user)
+    public function isGrantedToRename(Document $document, ?UserInterface $user): void
     {
         if (!$this->canRename($document, $user)) {
             throw new UnauthorizedException();

@@ -30,7 +30,7 @@ class DocumentRepository extends ServiceEntityRepository
      * @param Document $document
      * @param string $name
      */
-    public function rename(Document $document, string $name)
+    public function rename(Document $document, string $name): void
     {
         $document->setName($name);
         $this->saveDocument($document);
@@ -44,7 +44,7 @@ class DocumentRepository extends ServiceEntityRepository
      *
      * @throws NotFoundEntityException
      */
-    public function getFromId(int $id)
+    public function getFromId(int $id): Document
     {
         $document = $this->findOneBy(['id' => $id]);
 
@@ -64,7 +64,7 @@ class DocumentRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    public function saveDocument(Document $document)
+    public function saveDocument(Document $document): void
     {
         $entityManager = $this->getEntityManager();
 
@@ -82,7 +82,7 @@ class DocumentRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    public function clearDocument(Document $document)
+    public function clearDocument(Document $document): void
     {
         $document->setOwnerEmail(null);
         $document->setState(Document::EMPTY_STATE);
@@ -99,7 +99,7 @@ class DocumentRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    public function removeDocument(Document $document)
+    public function removeDocument(Document $document): void
     {
         $entityManager = $this->getEntityManager();
 

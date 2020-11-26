@@ -20,7 +20,7 @@ interface DocumentGuardInterface
      * @param UserInterface|null $user
      * @throws UnauthorizedException
      */
-    public function isGrantedToDownload(Document $document, ?UserInterface $user);
+    public function isGrantedToDownload(Document $document, ?UserInterface $user): void;
 
     /**
      * Checks if the user can remove the document.
@@ -30,7 +30,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRemove(Document $document, ?UserInterface $user);
+    public function isGrantedToRemove(Document $document, ?UserInterface $user): void;
 
     /**
      * Checks if the user can upload the document.
@@ -40,7 +40,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToUpload(Document $document, ?UserInterface $user);
+    public function isGrantedToUpload(Document $document, ?UserInterface $user): void;
 
     /**
      * Checks if the use can clear the document.
@@ -50,7 +50,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToClear(Document $document, ?UserInterface $user);
+    public function isGrantedToClear(Document $document, ?UserInterface $user): void;
 
     /**
      * Checks if the use can rename the document.
@@ -60,7 +60,7 @@ interface DocumentGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRename(Document $document, ?UserInterface $user);
+    public function isGrantedToRename(Document $document, ?UserInterface $user): void;
 
     /**
      * Can the user remove the document ?

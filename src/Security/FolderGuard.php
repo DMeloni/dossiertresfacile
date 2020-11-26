@@ -16,7 +16,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToCreateDocument(Folder $folder, ?UserInterface $user)
+    public function isGrantedToCreateDocument(Folder $folder, ?UserInterface $user): void
     {
         if (!$this->canCreateDocument($folder, $user)) {
             throw new UnauthorizedException();
@@ -26,7 +26,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToSendFolderToUser(Folder $folder, ?UserInterface $user)
+    public function isGrantedToSendFolderToUser(Folder $folder, ?UserInterface $user): void
     {
         if (!$this->canSendFolderToUser($folder, $user)) {
             throw new UnauthorizedException();
@@ -36,7 +36,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToRename(Folder $folder, ?UserInterface $user)
+    public function isGrantedToRename(Folder $folder, ?UserInterface $user): void
     {
         if (!$this->canSendFolderToUser($folder, $user)) {
             throw new UnauthorizedException();
@@ -51,7 +51,7 @@ class FolderGuard implements FolderGuardInterface
      *
      * @throws UnauthorizedException
      */
-    public function isGrantedToRemove(Folder $folder, ?UserInterface $user)
+    public function isGrantedToRemove(Folder $folder, ?UserInterface $user): void
     {
         if (!$this->canSendFolderToUser($folder, $user)) {
             throw new UnauthorizedException();
@@ -61,7 +61,7 @@ class FolderGuard implements FolderGuardInterface
     /**
      * @inheritDoc
      */
-    public function isGrantedToShow(Folder $folder, ?UserInterface $user)
+    public function isGrantedToShow(Folder $folder, ?UserInterface $user): void
     {
         if (!$this->canShow($folder, $user)) {
             throw new UnauthorizedException();

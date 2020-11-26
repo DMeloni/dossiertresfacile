@@ -54,7 +54,7 @@ class FolderRepository extends ServiceEntityRepository
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\Persistence\Mapping\MappingException
      */
-    public function saveFolder(Folder $folder)
+    public function saveFolder(Folder $folder): void
     {
         $entityManager = $this->getEntityManager();
         $entityManager->persist($folder);
